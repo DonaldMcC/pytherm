@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 # this came from kite_ros basic motion detection as a structure for open cv imaged display but will now
 # be stripped back to basics and see what it can do

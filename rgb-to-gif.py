@@ -10,7 +10,7 @@ MAX_FRAMES = 50           # Large sizes get big quick!
 SKIP_FRAMES = 2           # Frames to skip before starting recording
 OUTPUT_SIZE = (240, 320)  # Multiple of (24, 32)
 FPS = 4                   # Should match the FPS value in examples/rawrgb.cpp
-RAW_RGB_PATH = "../examples/rawrgb"
+RAW_RGB_PATH = r"/home/pi/mlx90640/mlx90640-library/examples/rawrgb"
 
 frames = []
 
