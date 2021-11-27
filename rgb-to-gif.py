@@ -5,8 +5,10 @@ import subprocess
 import argparse
 from PIL import Image
 import os
+import numpy as np
+import cv2
 
-MAX_FRAMES = 50           # Large sizes get big quick!
+MAX_FRAMES = 100          # Large sizes get big quick!
 SKIP_FRAMES = 2           # Frames to skip before starting recording
 OUTPUT_SIZE = (240, 320)  # Multiple of (24, 32)
 FPS = 4                   # Should match the FPS value in examples/rawrgb.cpp
@@ -24,6 +26,8 @@ args = parser.parse_args()
 fps = args.fps
 max_frames = args.frames
 skip_frames = args.skip
+cv2.startWindowThread()
+cv2.namedWindow('pytherm')
 
 if not os.path.isfile(RAW_RGB_PATH):
     raise RuntimeError("{} doesn't exist, did you forget to run \"make\"?".format(RAW_RGB_PATH))
@@ -55,7 +59,10 @@ try:
 
             # Convert the raw frame bytes into a PIL image and resize
             image = Image.frombytes('RGB', (32, 24), frame)
-
+            image = image.transpose(Image.ROTATE_270).transpose(Image.FLIP_LEFT_RIGHT)
+            cv2image=cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+            bigimage=cv2.resize(cv2image,(640,480))
+            cv2.imshow("pytherm", bigimage)
             frames.append(image)
             print("Frames: {}".format(len(frames)))
             if len(frames) == max_frames:
